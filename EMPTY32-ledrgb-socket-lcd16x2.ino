@@ -1,3 +1,4 @@
+
 /*
 ----------------------------------------------------------
 DMX SHIELD CTC-DRA-10-R2  
@@ -36,13 +37,29 @@ Arduino buttons pullup hardware layout:
                    
 
 pin 13 led 
+---------------------------------------------------------
+display:
+RW, LCD pin 5             GND
+RS, LCD pin 4             Arduino pin 7
+EN, LCD pin 6             Arduino pin 8
+
+datos
+DB7, LCD pin 14          Arduino pin 12
+DB6, LCD pin 13          Arduino pin 11
+DB5, LCD pin 12          Arduino pin 10
+DB4, LCD pin 11          Arduino pin  9
+
+                    |GND
+10K Potenciometro ->|Pin 3 del Lcd
+                    |+5V
 --------------------------------------------------------- 
 
 */
 
-
+#include <LiquidCrystal.h>
 #include <DmxSimple.h> 
 
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12); //    ( RS, EN, d4, d5, d6, d7)
 
 const int buttonPin1 =  22;      
 const int buttonPin2 =  23;     
@@ -115,8 +132,9 @@ int buttonState32 = 0;
         
 void setup() 
 {   
- 
-int buttonState1  = 0; 
+  lcd.begin(16, 2); // inicializar el LCD
+  lcd.print("Reproteq-Flame32cue"); // Enviar el mensaje
+  int buttonState1  = 0; 
   int buttonState2  = 0; 
   int buttonState3  = 0;
   int buttonState4  = 0; 
@@ -152,7 +170,7 @@ int buttonState1  = 0;
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
   DmxSimple.usePin(4);
-    DmxSimple.maxChannel(8); //number of channels
+  DmxSimple.maxChannel(8); //number of channels
   
   pinMode(buttonPin1, INPUT);
   pinMode(buttonPin2, INPUT);
@@ -192,6 +210,8 @@ int buttonState1  = 0;
 void loop() 
 
 {
+   lcd.setCursor(0, 8);  // set the cursor to column 0, line 1
+   lcd.print(millis() / 1000);  // print the number of seconds since reset:
    buttonState1  = digitalRead(buttonPin1);
    buttonState2  = digitalRead(buttonPin2);
    buttonState3  = digitalRead(buttonPin3);
@@ -230,6 +250,7 @@ void loop()
   
     if (buttonState1 == LOW)  // Button 1 
       { 
+       lcd.print("Secuencia 1"); // Enviar el mensaje 
        digitalWrite(ledPin, HIGH); // led pin A15 on    
        DmxSimple.write(3, 200);    // mode pulses
        DmxSimple.write(4, 252);    // increment speed
@@ -239,6 +260,7 @@ void loop()
   
     if (buttonState2 == LOW)  // Button 2
       {
+       lcd.print("Secuencia 2"); // Enviar el mensaje 
        digitalWrite(ledPin, HIGH); // led pin A15 on    
        DmxSimple.write(3, 200);    // mode pulses
        DmxSimple.write(4, 255);    // increment speed
