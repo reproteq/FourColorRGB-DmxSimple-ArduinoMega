@@ -38,20 +38,28 @@ Arduino buttons pullup hardware layout:
 
 pin 13 led 
 ---------------------------------------------------------
-display:
-RW, LCD pin 5             GND
-RS, LCD pin 4             Arduino pin 7
-EN, LCD pin 6             Arduino pin 8
+Display   :  Arduino
+VSS          GND
+VDD          +5V
+             |GND
+V0        -->|10KPot                   
+             |+5V                     
+RS           PIN7
+RW           GND
+EN           PIN8
+D1
+D2
+D3 
+D4
+D5           pin 10
+D6           pin 11
+D7           pin 12
+A         -> R220 -> GND
+K            +5V
+        
 
-datos
-DB7, LCD pin 14          Arduino pin 12
-DB6, LCD pin 13          Arduino pin 11
-DB5, LCD pin 12          Arduino pin 10
-DB4, LCD pin 11          Arduino pin  9
 
-                    |GND
-10K Potenciometro ->|Pin 3 del Lcd
-                    |+5V
+
 --------------------------------------------------------- 
 
 */
