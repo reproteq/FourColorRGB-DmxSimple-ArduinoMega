@@ -139,9 +139,10 @@ int buttonState31 = 0;
 int buttonState32 = 0;
         
 void setup() 
-{   
+{ 
+  pinMode(ledPin, OUTPUT); 
   lcd.begin(16, 2); // inicializar el LCD
-  lcd.print("Reproteq-Flame32cue"); // Enviar el mensaje
+  lcd.print("RGB DMX V1.0"); // Enviar el mensaje
   int buttonState1  = 0; 
   int buttonState2  = 0; 
   int buttonState3  = 0;
